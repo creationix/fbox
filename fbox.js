@@ -32,9 +32,9 @@ FBox.prototype.fit = function (size) {
   // Calculate the sizes
   var i, l = this.sizes.length;
   // Sum up the fixed and flex sizes
-  var flexCount = 0, weight;
+  var flexCount = 0, weight, part;
   for (i = 0; i < l; i++) {
-    var part = this.sizes[i];
+    part = this.sizes[i];
     // Negative size means flex space
     if (part < 0) {
       weight = -part;
@@ -48,7 +48,7 @@ FBox.prototype.fit = function (size) {
 
   var sizes = new Array(l);
   for (i = 0; i < l; i++) {
-    var part = this.sizes[i];
+    part = this.sizes[i];
     if (part < 0) {
       weight = -part;
       var flex = Math.floor(size / flexCount * weight);
@@ -57,7 +57,7 @@ FBox.prototype.fit = function (size) {
       flexCount -= weight;
     }
     else {
-      sizes[i] = size;
+      sizes[i] = part;
     }
   }
 
@@ -86,6 +86,7 @@ HBox.prototype.resize = function (width, height) {
 
   this.el.style.width = width + "px";
   this.el.style.height = height + "px";
+
 
   var widths = this.fit(width);
   var left = 0;
