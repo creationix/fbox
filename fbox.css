@@ -1,0 +1,6 @@
+div.fbox {
+    position: absolute;
+}
+div.fbox > * {
+    position: absolute;
+}
