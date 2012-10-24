@@ -22,7 +22,7 @@ FBox.prototype.add = function (child, size) {
 
 // Removes a child by index
 FBox.prototype.remove = function (index) {
-  var child = this.children.splice(index, 1);
+  var child = this.children.splice(index, 1)[0];
   this.sizes.splice(index, 1);
   this.el.removeChild(child.el);
   this.resize();
@@ -45,7 +45,7 @@ FBox.prototype.fit = function (size) {
       size -= part;
     }
   }
-  
+
   var sizes = new Array(l);
   for (i = 0; i < l; i++) {
     var part = this.sizes[i];
@@ -62,7 +62,7 @@ FBox.prototype.fit = function (size) {
   }
 
   return sizes;
-  
+
 };
 
 exports.HBox = HBox;
@@ -80,13 +80,13 @@ HBox.prototype.resize = function (width, height) {
     width = this.width;
     height = this.height;
   }
-  
+
   this.width = width;
   this.height = height;
 
   this.el.style.width = width + "px";
   this.el.style.height = height + "px";
-  
+
   var widths = this.fit(width);
   var left = 0;
   this.children.forEach(function (child, i) {
@@ -112,13 +112,13 @@ VBox.prototype.resize = function (width, height) {
     width = this.width;
     height = this.height;
   }
-  
+
   this.width = width;
   this.height = height;
 
   this.el.style.width = width + "px";
   this.el.style.height = height + "px";
-  
+
   var heights = this.fit(height);
   var top = 0;
   this.children.forEach(function (child, i) {
