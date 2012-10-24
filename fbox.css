@@ -1,6 +1,6 @@
-div.fbox {
+.fbox {
     position: absolute;
 }
-div.fbox > * {
+.fbox > * {
     position: absolute;
 }
