@@ -46,5 +46,5 @@ vbox.add(new Cell());
 box.add(vbox, -1);
 
 // Items can be removed by index as well
-```
 box.remove(1);
+```
