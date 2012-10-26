@@ -72,17 +72,28 @@ function HBox(el) {
 
 HBox.prototype = Object.create(FBox.prototype, {constructor: {value: HBox}});
 
+
+function isNumber(value) {
+  return typeof value === "number" && !isNaN(value);
+}
+
 // Call resize with the size you want it to fit into
 HBox.prototype.resize = function (width, height) {
-  // Can't resize if there is no size to fit into
-  if (!arguments.length) {
-    if (this.width === null) return;
+
+  if (arguments.length === 0) {
+    if (!isNumber(this.width) || !isNumber(this.height)) {
+      return;
+    }
     width = this.width;
     height = this.height;
   }
-
-  this.width = width;
-  this.height = height;
+  else {
+    if (!isNumber(width) || !isNumber(height)) {
+      throw new TypeError("width and height must be numbers");
+    }
+    this.width = width;
+    this.height = height;
+  }
 
   this.el.style.width = width + "px";
   this.el.style.height = height + "px";
