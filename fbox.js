@@ -12,7 +12,9 @@ function FBox(el) {
 // Child is an object with an .el element and .resize(w, h) method.
 FBox.prototype.add = function (child, size) {
   this.children.push(child);
-  this.el.appendChild(child.el);
+  if (child) {
+    this.el.appendChild(child.el);
+  }
   if (arguments.length < 2) {
     size = -1;
   }
@@ -24,7 +26,9 @@ FBox.prototype.add = function (child, size) {
 FBox.prototype.remove = function (index) {
   var child = this.children.splice(index, 1)[0];
   this.sizes.splice(index, 1);
-  this.el.removeChild(child.el);
+  if (child) {
+    this.el.removeChild(child.el);
+  }
   this.resize();
 };
 
@@ -102,9 +106,11 @@ HBox.prototype.resize = function (width, height) {
   var widths = this.fit(width);
   var left = 0;
   this.children.forEach(function (child, i) {
-    child.el.style.left = left + "px";
+    if (child) {
+      child.el.style.left = left + "px";
+      child.resize(widths[i], height);
+    }
     left += widths[i];
-    child.resize(widths[i], height);
   });
 
 };
@@ -134,9 +140,11 @@ VBox.prototype.resize = function (width, height) {
   var heights = this.fit(height);
   var top = 0;
   this.children.forEach(function (child, i) {
-    child.el.style.top = top + "px";
+    if (child) {
+      child.el.style.top = top + "px";
+      child.resize(width, heights[i]);
+    }
     top += heights[i];
-    child.resize(width, heights[i]);
   });
 
 };
